@@ -1,0 +1,79 @@
+[build-system]
+requires = ["setuptools>=64.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.uv]
+# ovos-plugin-manager imports pkg_resources, which setuptools 81 removed
+constraint-dependencies = ["setuptools<81"]
+
+[project]
+name = "neon-phal-plugin-notifications"
+version = "0.0.1"
+description = "Notification Manager PHAL plugin for Neon/OVOS: owns notification state, persistence, snooze/dismiss, and emission policy"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { "text" = "BSD-3-Clause" }
+authors = [{ name = "Mike Gray", email = "mike@oscillatelabs.net" }]
+keywords = ["ovos", "neon", "phal", "plugin", "notifications", "voice assistant"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "License :: OSI Approved :: BSD License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+]
+dependencies = [
+    # Notification models require the FEAT_Notifications branch until released
+    "neon-data-models>=0.0.3a5",
+    "ovos-utils~=0.8",
+    "ovos-bus-client~=1.5",
+    "ovos-plugin-manager~=2.2",
+    "json_database~=0.10",
+    "pydantic~=2.9",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=7.0.0", "pytest-cov>=4.0.0"]
+dev = ["ruff>=0.0.291", "mypy>=1.0.0"]
+
+[project.urls]
+Homepage = "https://github.com/NeonGeckoCom/neon-phal-plugin-notifications"
+Repository = "https://github.com/NeonGeckoCom/neon-phal-plugin-notifications.git"
+Issues = "https://github.com/NeonGeckoCom/neon-phal-plugin-notifications/issues"
+
+[project.entry-points."opm.phal"]
+neon-phal-plugin-notifications = "neon_phal_plugin_notifications:NotificationManagerPlugin"
+
+[tool.setuptools.packages.find]
+include = ["neon_phal_plugin_notifications*"]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q --cov=neon_phal_plugin_notifications --cov-report=term-missing"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 119
+target-version = "py310"
+
+[tool.ruff.lint]
+select = [
+    "E", # pycodestyle
+    "F", # pyflakes
+    "I", # isort
+]
+
+[tool.ruff.lint.isort]
+lines-after-imports = 2
+combine-as-imports = true
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
