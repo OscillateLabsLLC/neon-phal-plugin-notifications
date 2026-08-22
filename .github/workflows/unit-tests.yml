@@ -20,7 +20,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install "git+https://github.com/NeonGeckoCom/neon-data-models@FEAT_Notifications"
+          pip install "git+https://github.com/mikejgray/neon-data-models@FEAT_Notifications"
           pip install ".[test,dev]"
       - name: Test with pytest
         run: |
