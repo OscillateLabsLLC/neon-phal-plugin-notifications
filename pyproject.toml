@@ -8,7 +8,7 @@ constraint-dependencies = ["setuptools<81"]
 
 [project]
 name = "neon-phal-plugin-notifications"
-version = "0.0.1"
+version = "0.1.0"
 description = "Notification Manager PHAL plugin for Neon/OVOS: owns notification state, persistence, snooze/dismiss, and emission policy"
 readme = "README.md"
 requires-python = ">=3.10"
